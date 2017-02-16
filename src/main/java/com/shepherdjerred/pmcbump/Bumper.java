@@ -2,6 +2,7 @@ package com.shepherdjerred.pmcbump;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -65,16 +66,16 @@ public class Bumper {
 
         System.out.println(cookies);
 
-        Connection.Response response = Jsoup.connect("http://www.planetminecraft.com/qajax.php")
+        Document document = Jsoup.connect("http://www.planetminecraft.com/qajax.php")
                 .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36")
                 .cookies(cookies)
+                .referrer("http://www.planetminecraft.com/account/manage/servers/3004178")
                 .data("resource_id", resourceId)
                 .data("member_id", memberId)
                 .data("action", "bump")
-                .method(Connection.Method.GET)
-                .execute();
+                .get();
 
-        System.out.println("Bump: " + response.body());
+        System.out.println("Bump: " + document.body());
 
     }
 
