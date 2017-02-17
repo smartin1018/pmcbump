@@ -1,11 +1,25 @@
 package com.shepherdjerred.pmcbump;
 
+import com.shepherdjerred.pmcbump.config.Config;
+import com.shepherdjerred.pmcbump.config.PropertiesConfig;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Main {
 
-    public static void main(String args[]) {
-        Bumper bumper = new Bumper("jsheph032010@live.com", "password", "3004178", "209278");
-        bumper.bumpServer();
-    }
+    private final static Logger LOGGER = Logger.getLogger(Main.class.getName());
 
+    public static void main(String args[]) {
+
+        LOGGER.log(Level.FINE, "Loading config.properties");
+        Config config = new PropertiesConfig();
+        config.loadConfig();
+
+        LOGGER.log(Level.FINE, "Bumping server");
+        Bumper bumper = new Bumper(config);
+        bumper.bumpServer();
+
+    }
 
 }
