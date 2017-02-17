@@ -17,15 +17,15 @@ public class PropertiesConfig implements Config {
     private Properties properties = new Properties();
 
     public void loadConfig() {
-        loadProperties();
         createDefaultPropertiesFiles();
+        loadProperties();
         loadValuesFromProperties();
     }
 
     private void createDefaultPropertiesFiles() {
         File file = new File("config.properties");
         if (!file.exists()) {
-            try (OutputStream outputFile = new FileOutputStream("config.properties"); InputStream defaultProperties = getClass().getResourceAsStream("config.properties")) {
+            try (OutputStream outputFile = new FileOutputStream("config.properties"); InputStream defaultProperties = getClass().getResourceAsStream("/config.properties")) {
                 properties.load(defaultProperties);
                 properties.store(outputFile, null);
                 LOGGER.log(Level.INFO, "Default config.properties file created. Edit the config with your information and re-run this application");
